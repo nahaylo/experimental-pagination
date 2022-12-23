@@ -1,0 +1,7 @@
+%h3 Traditional
+
+= render 'shared/form_data'
+
+- benchmark benchmark_pagination_msg do
+  = page_entries_info @miner_data
+  = paginate(@miner_data)

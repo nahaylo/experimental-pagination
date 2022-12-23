@@ -1,0 +1,7 @@
+%h3 Traditional - without count
+
+= render 'shared/form_data'
+
+- benchmark benchmark_pagination_msg do
+  = link_to_prev_page @miner_data, 'Previous Page'
+  = link_to_next_page @miner_data, 'Next Page'

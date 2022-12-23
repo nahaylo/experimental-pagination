@@ -1,0 +1,7 @@
+%h3 Keyset
+
+= render 'shared/form_data'
+
+- benchmark benchmark_pagination_msg do
+  = link_to 'Previous Page', url_for(**request.query_parameters.merge(cursor_previous: cursor_previous_id, cursor_next: nil))
+  = link_to 'Next Page', url_for(**request.query_parameters.merge(cursor_next: cursor_next_id, cursor_previous: nil))

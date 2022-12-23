@@ -1,0 +1,30 @@
+%form
+  from:
+  %input{name: 'created_from', value: params[:created_from]}
+  to:
+  %input{name: 'created_to', value: params[:created_to]}
+
+  from:
+  %input{name: 'updated_from', value: params[:updated_from]}
+  to:
+  %input{name: 'updated_to', value: params[:updated_to]}
+
+  %input{type: 'submit'}
+
+%nav
+  %ul
+    %li id
+    %li name
+    %li fan_percentage
+    %li created_at (w index)
+    %li updated_at (wo index)
+
+  - benchmark "=== Render data: #{action_name} ===" do
+    - self.try(:process_data)
+    - @miner_data.each do |d|
+      %ul
+        %li=d.id
+        %li=d.name
+        %li=d.fan_percentage
+        %li=d.created_at
+        %li=d.updated_at
