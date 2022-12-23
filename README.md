@@ -16,69 +16,101 @@
 #### Examples
   * **Get all data**
       * first page [109 987 200 records](http://localhost:3000/traditional)
-        `=== Render data: index === (20.9ms)`
-        `=== Render pagination: traditional index === (25756.6ms)`
+        ```
+        === Render data: index === (20.9ms)
+        === Render pagination: traditional index === (25756.6ms)
+        ```
         *caused by count*
       * first page (w/o count) [109 987 200 records](http://localhost:3000/traditional/wo_count)
-        `=== Render data: wo_count === (4.9ms)`
-        `=== Render pagination: traditional wo_count === (0.6ms)`
+        ```
+        === Render data: wo_count === (4.9ms)
+        === Render pagination: traditional wo_count === (0.6ms)
+        ```
       * page #500000 [109 987 200 records](http://localhost:3000/traditional?page=500000)
-        `=== Render data: index === (1135.1ms)`
-        `=== Render pagination: traditional index === (26448.8ms)`
+        ```
+        === Render data: index === (1135.1ms)
+        === Render pagination: traditional index === (26448.8ms)
+        ```
         *caused by count and offset*
       * page #500000 (w/o count) [109 987 200 records](http://localhost:3000/traditional/wo_count?page=500000)
-        `=== Render data: wo_count === (871.4ms)`
-        `=== Render pagination: traditional wo_count === (1.2ms)`
+        ```
+        === Render data: wo_count === (871.4ms)
+        === Render pagination: traditional wo_count === (1.2ms)
+        ```
         *caused by offset*
   * **Search by fields**
       * indexed fields [44 records (by created_at)](http://localhost:3000/traditional?created_from=2016-01-01+00%3A00%3A00&created_to=2016-01-01+00%3A01%3A26)
-        `=== Render data: index === (6.2ms)`
-        `=== Render pagination: traditional index === (4.0ms)`
+        ```
+        === Render data: index === (6.2ms)
+        === Render pagination: traditional index === (4.0ms)
+        ```
         *thanks to index*
     * non-indexed fields [44 records (by updated_at)](http://localhost:3000/traditional?updated_from=2016-01-01+00%3A00%3A00&updated_to=2016-01-01+00%3A01%3A26)
-        `=== Render data: index === (30307.6ms)`
-        `=== Render pagination: traditional index === (30863.7ms)`
+        ```
+        === Render data: index === (30307.6ms)
+        === Render pagination: traditional index === (30863.7ms)
+        ```
         *caused by count and offset, and lack of index*
   * **When scope is big but w/ index**
       * first page [15 811 244 records](http://localhost:3000/traditional?created_from=2016-01-01+00%3A00%3A00&created_to=2017-01-01+00%3A01%3A26)
-        `=== Render data: index === (34.8ms)`
-        `=== Render pagination: traditional index === (884.9ms)`
+        ```
+        === Render data: index === (34.8ms)
+        === Render pagination: traditional index === (884.9ms)
+        ```
       * page #500000 [15 811 244 records](http://localhost:3000/?created_from=2016-01-01+00%3A00%3A00&created_to=2017-01-01+00%3A01%3A26&page=500000)
-        `=== Render data: index === (1345.3ms)`
-        `=== Render pagination: traditional index === (647.4ms)`
+        ```
+        === Render data: index === (1345.3ms)
+        === Render pagination: traditional index === (647.4ms)
+        ```
         *caused by offset*
   * **When scope is big but w/o index**
       * first page [15 811 244 records](http://localhost:3000/traditional?updated_from=2016-01-01+00%3A00%3A00&updated_to=2017-01-01+00%3A01%3A26)
-        `=== Render data: index === (270.2ms)`
-        `=== Render pagination: traditional index === (25992.6ms)`
+        ```
+        === Render data: index === (270.2ms)
+        === Render pagination: traditional index === (25992.6ms)
+        ```
       * page #500000 [15 811 244 records](http://localhost:3000/?updated_from=2016-01-01+00%3A00%3A00&updated_to=2017-01-01+00%3A01%3A26&page=500000)
-        `=== Render data: index === (1309.3ms)`
-        `=== Render pagination: traditional index === (25278.8ms)`
+        ```
+        === Render data: index === (1309.3ms)
+        === Render pagination: traditional index === (25278.8ms)
+        ```
         *caused by offset*
 
 ## Keyset pagination or pagination with relative cursors
 #### Examples
   * **Get all data**
       * first page [109 987 200 records](http://localhost:3000/keyset)
-        `=== Render data: index === (0.5ms)`
-        `=== Render pagination: keyset index === (0.7ms)`
+        ```
+        === Render data: index === (0.5ms)
+        === Render pagination: keyset index === (0.7ms)
+        ```
       * page #500000 [109 987 200 records](http://localhost:3000/keyset?cursor_next=500000)
-        `=== Render data: index === (1.6ms)`
-        `=== Render pagination: keyset index === (0.3ms)`
+        ```
+        === Render data: index === (1.6ms)
+        === Render pagination: keyset index === (0.3ms)
+        ```
   * **When scope is big but w/ index**
       * first page [15 811 244 records](http://localhost:3000/keyset?created_from=2016-01-01+00%3A00%3A00&created_to=2017-01-01+00%3A01%3A26)
-        `=== Render data: index === (0.7ms)`
-        `=== Render pagination: keyset index === (0.4ms)`
+        ```
+        === Render data: index === (0.7ms)
+        === Render pagination: keyset index === (0.4ms)
+        ```
       * page #500000 [15 811 244 records](http://localhost:3000/keyset?created_from=2016-01-01+00%3A00%3A00&created_to=2017-01-01+00%3A01%3A26&cursor_next=500000)
-        `=== Render data: index === (0.9ms)`
-        `=== Render pagination: keyset index === (0.4ms)`
+        ```
+        === Render data: index === (0.9ms)
+        === Render pagination: keyset index === (0.4ms)
+        ```
   * **When scope is big but w/o index**
       * [first page](http://localhost:3000/keyset?updated_from=2017-01-01+00%3A00%3A00&updated_to=2018-01-01+00%3A01%3A26)
-        `=== Render data: index === (1831.6ms)`
-        `=== Render pagination: keyset index === (1.5ms)`
+        ```
+        === Render data: index === (1831.6ms)
+        === Render pagination: keyset index === (1.5ms)
+        ```
       * [second page](http://localhost:3000/keyset?updated_from=2017-01-01+00%3A00%3A00&updated_to=2018-01-01+00%3A01%3A26)
-        `=== Render data: index === (1939.9ms)`
-        `=== Render pagination: keyset index === (1.5ms)`
+        ```
+        === Render data: index === (1939.9ms)
+        === Render pagination: keyset index === (1.5ms)
+        ```
 #### References
 - https://use-the-index-luke.com/no-offset
 - https://use-the-index-luke.com/blog/2013-07/pagination-done-the-postgresql-way
