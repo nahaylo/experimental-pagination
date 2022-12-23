@@ -208,6 +208,12 @@ page 500001
 
 ## Solutions
 * Reduce nubmer of records :)
+## Advanced Level :) 
+* General good practice: use Left Join (Avoid Inner Join)
+* Repalce IN (101,102,..) with ANY(VALUES(101), (102)..)
+* Investigate table and maybe enable Extended Statistics
+* Rows Removed by Filter: 15811200 --> need to avoid such cases when postgres need to remove result by filter. 
+* Use Covering Indexes
 
 ## Conclustion
 * Count is expensive procedure
@@ -217,7 +223,11 @@ page 500001
 - https://stackoverflow.com/questions/7943233/fast-way-to-discover-the-row-count-of-a-table-in-postgresql/7945274#7945274
 
 ## Count
-https://stackoverflow.com/questions/7943233/fast-way-to-discover-the-row-count-of-a-table-in-postgresql/7945274#7945274
+- https://stackoverflow.com/questions/7943233/fast-way-to-discover-the-row-count-of-a-table-in-postgresql/7945274#7945274
+
+## Advanced Level reference
+- https://www.postgresql.org/docs/14/indexes-index-only-scans.html
+- https://www.postgresql.org/docs/14/planner-stats.html#PLANNER-STATS-EXTENDED
 
 ```
 SELECT count(*) FROM "miner_data";
