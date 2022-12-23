@@ -206,9 +206,10 @@ page 500001
     "Execution Time: 2064.947 ms"
     ```
 
-### Solutions
-Reduce nubmer of records
+## Solutions
+* Reduce nubmer of records :)
 
+## Conclustion
 * Count is expensive procedure
 * Offset is expensive procedure
 
