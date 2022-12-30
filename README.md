@@ -214,6 +214,7 @@ page 500001
 * Investigate table and maybe enable Extended Statistics
 * Rows Removed by Filter: 15811200 --> need to avoid such cases when postgres need to remove result by filter. 
 * Use Covering Indexes
+* Use BRIN indexes for datetime insteaf of BTree https://www.postgresql.org/docs/current/indexes-types.html#INDEXES-TYPES-BRIN
 
 ## Conclustion
 * Count is expensive procedure
