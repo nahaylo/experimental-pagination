@@ -111,6 +111,30 @@
         === Render data: index === (1939.9ms)
         === Render pagination: keyset index === (1.5ms)
         ```
+## Keyset pagination or pagination with relative cursors (pagy edition)
+#### Examples
+  * **Get all data**
+      * first page [109 987 200 records](http://localhost:3000/pagy_pagination)
+        ```
+        === Render data: index === (2.1ms)
+        === Render pagination: pagy_pagination index === (0.9ms)
+        ```
+      * page #500000 [109 987 200 records](http://localhost:3000/pagy_pagination?cursor_next=500000)
+        ```
+        === Render data: index === (15.9ms)
+        === Render pagination: pagy_pagination index === (1.5ms)
+        ```
+  * **Search by fields**
+      * indexed fields [10 records (by created_at)](http://localhost:3000/pagy_pagination?created_from=2022-12-20+23%3A59%3A10+UTC&created_to=2022-12-20+23%3A59%3A28+UTC&updated_from=&updated_to=)
+        ```
+        === Render data: index === (0.8ms)
+        === Render pagination: pagy_pagination index === (2.2ms)
+        ```
+    * non-indexed fields [10 records (by updated_at)](http://localhost:3000/pagy_pagination?created_from=&created_to=&updated_from=2022-12-20+23%3A59%3A10+UTC&updated_to=2022-12-20+23%3A59%3A28+UTC) (but sql queries are big as hell)
+        ```
+        === Render data: index === (0.7ms)
+        === Render pagination: pagy_pagination index === (4.6ms)
+        ```
 #### References
 - https://use-the-index-luke.com/no-offset
 - https://use-the-index-luke.com/blog/2013-07/pagination-done-the-postgresql-way

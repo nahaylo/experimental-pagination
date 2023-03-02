@@ -126,9 +126,16 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.10-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.13.10-x86_64-darwin)
+      racc (~> 1.4)
     order_query (0.5.2)
       activerecord (>= 5.0, < 7.1)
       activesupport (>= 5.0, < 7.1)
+    pagy (5.10.1)
+      activesupport
+    pagy_cursor (0.5.0)
+      activerecord (>= 5)
+      pagy (>= 5, < 6)
     pg (1.4.5)
     pry (0.14.1)
       coderay (~> 1.1)
@@ -198,6 +205,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-darwin-22
 
 DEPENDENCIES
   bootsnap
@@ -206,6 +214,8 @@ DEPENDENCIES
   jbuilder
   kaminari
   order_query
+  pagy (~> 5.0)
+  pagy_cursor (~> 0.5.0)
   pg (~> 1.1)
   pry
   puma (~> 5.0)

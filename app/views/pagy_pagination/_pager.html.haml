@@ -1,0 +1,5 @@
+#pager.min-w-full.my-8.flex.justify-center
+  %div
+    = link_to("Load previous data", pagy_pagination_index_path(cursor_next: first), class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800")
+    - if pagy.has_more
+      = link_to("Load more data", pagy_pagination_index_path(cursor_previous: last), class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800")

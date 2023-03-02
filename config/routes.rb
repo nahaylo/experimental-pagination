@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   end
 
   resources :keyset
+
+  resources :pagy_pagination, only: :index
 end

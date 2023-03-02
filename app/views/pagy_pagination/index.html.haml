@@ -1,0 +1,6 @@
+%h3 Pagy Pagination
+
+= render 'shared/form_data'
+
+- benchmark benchmark_pagination_msg do
+  = render "pager", pagy: @pagy, first: @miner_data.first&.id, last: @miner_data.last&.id
