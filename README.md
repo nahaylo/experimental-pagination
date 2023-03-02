@@ -130,13 +130,11 @@
         === Render data: index === (0.8ms)
         === Render pagination: pagy_pagination index === (2.2ms)
         ```
-        *thanks to index*
     * non-indexed fields [10 records (by updated_at)](http://localhost:3000/pagy_pagination?created_from=&created_to=&updated_from=2022-12-20+23%3A59%3A10+UTC&updated_to=2022-12-20+23%3A59%3A28+UTC) (but sql queries are big as hell)
         ```
         === Render data: index === (0.7ms)
         === Render pagination: pagy_pagination index === (4.6ms)
         ```
-        *caused by count and offset, and lack of index*
 #### References
 - https://use-the-index-luke.com/no-offset
 - https://use-the-index-luke.com/blog/2013-07/pagination-done-the-postgresql-way
