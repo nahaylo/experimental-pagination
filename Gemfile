@@ -68,3 +68,5 @@ group :development do
   # gem "spring"
 end
 
+gem 'pagy', '~> 5.0' # omit patch digit
+gem 'pagy_cursor', '~> 0.5.0'
