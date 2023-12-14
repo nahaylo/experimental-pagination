@@ -53,6 +53,8 @@ gem 'kaminari'
 gem 'order_query'
 # gem 'rb_pager'
 
+gem 'ancestry', '3.1'
+
 group :development, :test do
   gem 'pry'
 end
