@@ -197,7 +197,7 @@ page 500001
     "Execution Time: 2383.820 ms"
     ```
   #### Getting 25 records out of 39 644
-  * indexed field
+    * indexed field
     ```
     EXPLAIN ANALYZE SELECT "miner_data".* FROM "miner_data"
         WHERE
@@ -214,6 +214,7 @@ page 500001
     "Planning Time: 0.338 ms"
     "Execution Time: 7.364 ms"
     ```
+
     * non indexed field
     ```
     EXPLAIN ANALYZE SELECT "miner_data".* FROM "miner_data"
@@ -230,13 +231,55 @@ page 500001
     "Execution Time: 2064.947 ms"
     ```
 
+    * BRIN indexed field and ORDER BY it
+    ```
+    EXPLAIN ANALYZE
+        SELECT "miner_data".* FROM "miner_data"
+        WHERE
+        (created_at_brin >= '2017-01-01 00:00:00')
+        AND (created_at_brin <= '2017-01-01 23:01:26')
+        ORDER BY created_at_brin DESC
+        limit 25
+
+        Limit  (cost=165475.51..165475.58 rows=25 width=73) (actual time=75.669..75.671 rows=25 loops=1)
+          ->  Sort  (cost=165475.51..165571.54 rows=38409 width=73) (actual time=75.668..75.669 rows=25 loops=1)
+                Sort Key: created_at_brin DESC
+                Sort Method: top-N heapsort  Memory: 32kB
+                ->  Bitmap Heap Scan on miner_data  (cost=185.76..164391.64 rows=38409 width=73) (actual time=8.599..61.561 rows=41444 loops=1)
+                      Recheck Cond: ((created_at_brin >= '2017-01-01 00:00:00'::timestamp without time zone) AND (created_at_brin <= '2017-01-01 23:01:26'::timestamp without time zone))
+                      Rows Removed by Index Recheck: 6556
+                      Heap Blocks: lossy=640
+                      ->  Bitmap Index Scan on index_miner_data_on_created_at_brin  (cost=0.00..176.16 rows=48000 width=0) (actual time=8.576..8.576 rows=6400 loops=1)
+                            Index Cond: ((created_at_brin >= '2017-01-01 00:00:00'::timestamp without time zone) AND (created_at_brin <= '2017-01-01 23:01:26'::timestamp without time zone))
+        Planning Time: 0.966 ms
+        Execution Time: 76.371 ms
+    ```
+
+    * BRIN indexed field and ORDER BY ID DESC
+    ```
+    EXPLAIN ANALYZE
+        SELECT "miner_data".* FROM "miner_data"
+        WHERE
+        (created_at_brin >= '2017-01-01 00:00:00')
+        AND (created_at_brin <= '2017-01-01 23:01:26')
+        ORDER BY "miner_data"."id" asc
+        limit 25
+
+        Limit  (cost=0.57..3172.04 rows=25 width=73) (actual time=2333.449..2333.501 rows=25 loops=1)
+          ->  Index Scan using miner_data_pkey on miner_data  (cost=0.57..4872531.57 rows=38409 width=73) (actual time=2333.447..2333.465 rows=25 loops=1)
+                Filter: ((created_at_brin >= '2017-01-01 00:00:00'::timestamp without time zone) AND (created_at_brin <= '2017-01-01 23:01:26'::timestamp without time zone))
+                Rows Removed by Filter: 15811200
+        Planning Time: 0.345 ms
+        Execution Time: 2333.574 ms
+    ```
+
 ## Solutions
 * Reduce nubmer of records :)
-## Advanced Level :) 
+## Advanced Level :)
 * General good practice: use Left Join (Avoid Inner Join)
 * Repalce IN (101,102,..) with ANY(VALUES(101), (102)..)
 * Investigate table and maybe enable Extended Statistics
-* Rows Removed by Filter: 15811200 --> need to avoid such cases when postgres need to remove result by filter. 
+* Rows Removed by Filter: 15811200 --> need to avoid such cases when postgres need to remove result by filter.
 * Use Covering Indexes
 * Use BRIN indexes for datetime insteaf of BTree https://www.postgresql.org/docs/current/indexes-types.html#INDEXES-TYPES-BRIN
 
